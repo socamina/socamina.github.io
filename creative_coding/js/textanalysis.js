@@ -4,7 +4,7 @@ function setupApi() {
 
     gapi.load('client', function() {
         gapi.client.init({
-            'apiKey': 'AIzaSyBYry8O_oJgNjG2BrfmFJ7GZnAUqzWUITg',
+          //  'apiKey': 
             'discoveryDocs': ['https://language.googleapis.com/$discovery/rest?version=v1beta1'],
         }).then(function() {
             console.log('API loaded')
