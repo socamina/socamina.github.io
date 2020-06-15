@@ -5,8 +5,8 @@
 let LAYERS = {};
 
 let ZOOM = {
-    C: 2,
-    A: 2.5,
+    C: 1,
+    A: 1.3,
     S: 1,
     P: 1.5,
 }
@@ -19,7 +19,7 @@ let PROPS = {
 
     letterWeight: 72,
     layers: [],
-    currLayer: 'geisel',
+    currLayer: 'eisenmann2',
     //image: PROPS.currLayer,
 }
 
@@ -28,22 +28,29 @@ let lW = PROPS.letterWeight;
 let FONT;
 
 function preload() {
+let directory= 'rsrc/image/';
+    let dir= 'rsrc/image/';
 
-    let directory = 'rsrc/images/';
+    //LAYERS['building'] = loadLayer(dir + 'building.jpg');
+    //LAYERS['concrete'] = loadLayer(dir + 'concrete.jpg');
+    LAYERS['corbusier'] = loadLayer(dir + 'corbusier.png');
+    LAYERS['eisenmann1'] = loadLayer(dir + 'eisenmann1.png');
+    LAYERS['eisenmann2'] = loadLayer(dir + 'eisenmann2.png');
+    LAYERS['eisenmann3'] = loadLayer(dir+ 'eisenmann3.png');
+    //LAYERS['escalier'] = loadLayer(dir + 'escalier.png');
+    //LAYERS['geisel'] = loadLayer(dir + 'geisel.jpg');
+    //LAYERS['indoor'] = loadLayer(dir + 'indoor.jpg');
+    //LAYERS['jinhua'] = loadLayer(directory + 'jinhua.png');
+    LAYERS['pave'] = loadLayer(dir + 'pave.jpg');
+    LAYERS['pavillon'] = loadLayer(dir + 'pavillon.png');
+    //LAYERS['stairs'] = loadLayer(dir + 'stairs.jpg');
 
-    LAYERS['jinhua'] = loadLayer(directory + 'jinhua.png');
     LAYERS['water'] = loadLayer(directory + 'water.png');
-    LAYERS['brutaliste'] = loadLayer(directory + 'brutaliste.png');
-    LAYERS['concrete'] = loadLayer(directory + 'concrete.png');
-    LAYERS['corbusier'] = loadLayer(directory + 'corbusier.png');
-    LAYERS['eisenmann1'] = loadLayer(directory + 'eisenmann1.png');
-    LAYERS['eisenmann2'] = loadLayer(directory + 'eisenmann2.png');
-    LAYERS['eisenmann3'] = loadLayer(directory + 'eisenmann3.png');
-    LAYERS['escalier'] = loadLayer(directory + 'escalier.png');
-    LAYERS['geisel'] = loadLayer(directory + 'geisel.png');
-    LAYERS['pavillon'] = loadLayer(directory + 'pavillon.png');
-    LAYERS['utopia'] = loadLayer(directory + 'utopia.png');
-    LAYERS['yougoslavia'] = loadLayer(directory + 'yougoslavia.png');
+    //LAYERS['water'] = loadLayer(dir + 'water.jpg');
+    //LAYERS['utopia'] = loadLayer(directory + 'utopia.png');
+    //LAYERS['yougoslavia'] = loadLayer(directory + 'yougoslavia.jpg');
+    //LAYERS['yougoslavie'] = loadLayer(dir + 'yougoslavie.jpg');
+
 
     PROPS.layers = Object.keys(LAYERS);
 
@@ -75,20 +82,21 @@ function setup() {
 function setupGui() {
     const gui = new dat.GUI();
 
-
+  gui.add(PROPS, 'currLayer', PROPS.layers);
     ZOOM.folder = gui.addFolder('Zoom');
 
-    ZOOM.folder.add(ZOOM, 'C').min(1).max(5);
-    ZOOM.folder.add(ZOOM, 'A').min(1).max(5);
-    ZOOM.folder.add(ZOOM, 'S').min(1).max(5);
-    ZOOM.folder.add(ZOOM, 'P').min(1).max(5);
+    ZOOM.folder.add(ZOOM, 'C').min(1).max(2);//.step(0.1);
+    ZOOM.folder.add(ZOOM, 'A').min(1).max(2);//.step(0.1);
+    ZOOM.folder.add(ZOOM, 'S').min(1).max(2);//.step(0.1);
+    ZOOM.folder.add(ZOOM, 'P').min(1).max(2);//.step(0.1);
 
     ZOOM.folder.open();
 
 
-    gui.add(PROPS, 'letterWeight').min(30).max(72);
+    //gui.add(PROPS, 'letterWeight').min(30).max(72);
+    //gui.add(PROPS, 'Save Image');
+
     gui.add(PROPS, 'Save Image');
-    gui.add(PROPS, 'currLayer', PROPS.layers);
 }
 
 function drawLetterC() {
@@ -212,9 +220,10 @@ function drawText() {
     fill(255);
     noStroke();
     textFont(FONT);
+    textSize(12);
 
     textLeading(12);
-    text('CONTEMPORARY\nARCHITECTURE SPACE', width - lW, height - lW);
+    text('CONTEMPORARY\nARCHITECTURE SPACE', width - lW-4, height - lW-1);
 
     // text('CONTEMPORARY', 3 * lW, height - 2 * lW, 3 * lW - 6, lW - 20)
     // text('ARCHITECTURE SPACE', 3 * lW, height - 2 * lW, 3 * lW - 6, lW - 6)
@@ -231,7 +240,7 @@ function draw() {
     background(255, 255, 0);
 
 
-    fill(LAYERS[PROPS.currLayer], 'repeat', function() {
+    fill(LAYERS[PROPS.currLayer], 'no-repeat', function() {
         translate(this.width, this.height);
         scale(0.3);
     });
